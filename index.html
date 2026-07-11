@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b5e8e">
+  <meta name="description" content="Agenda de estudos para o concurso DATAPREV 2026, perfil Desenvolvimento de Software.">
+  <title>DATAPREV · Agenda de Estudos</title>
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <button class="brand" type="button" data-view="dashboard" aria-label="Ir para visão geral">
+        <img src="assets/img/dataprev-logo.png" alt="DATAPREV">
+      </button>
+
+      <nav class="main-nav" aria-label="Navegação principal">
+        <button class="nav-link active" type="button" data-view="dashboard">Visão geral</button>
+        <button class="nav-link" type="button" data-view="agenda">Agenda</button>
+        <button class="nav-link" type="button" data-view="subjects">Matérias</button>
+        <button class="nav-link" type="button" data-view="priorities">Prioridades</button>
+      </nav>
+
+      <div class="header-actions">
+        <details class="backup-menu">
+          <summary aria-label="Opções de backup">Backup</summary>
+          <div class="backup-popover">
+            <strong>Progresso</strong>
+            <p>Salvo automaticamente neste navegador.</p>
+            <button class="menu-action" id="exportBackup" type="button">Exportar arquivo</button>
+            <label class="menu-action file-action">
+              Importar arquivo
+              <input id="importBackup" type="file" accept="application/json" hidden>
+            </label>
+          </div>
+        </details>
+        <button class="primary-button" id="focusToday" type="button">Estudar hoje</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="view active" id="view-dashboard">
+      <div class="page-heading">
+        <div>
+          <span class="kicker">Perfil 3 · Desenvolvimento de Software</span>
+          <h1>Plano de preparação</h1>
+          <p>Um cronograma enxuto, orientado por prioridade e sem desfile de aula irrelevante.</p>
+        </div>
+        <span class="exam-chip">Prova · 11/10/2026</span>
+      </div>
+
+      <div class="hero-grid">
+        <article class="hero-card card">
+          <div>
+            <span class="card-label">Contagem regressiva</span>
+            <div class="countdown-line">
+              <strong id="daysRemaining">--</strong>
+              <span>dias para a prova</span>
+            </div>
+            <p id="countdownNote">Carregando o calendário…</p>
+          </div>
+          <div class="hero-meta">
+            <span>2h diárias</span>
+            <span>Vídeos em 1,5x</span>
+            <span>7 dias de revisão</span>
+          </div>
+        </article>
+
+        <article class="card progress-card">
+          <div class="card-heading compact">
+            <div>
+              <span class="card-label">Progresso por prioridade</span>
+              <h2>O placar que importa</h2>
+            </div>
+          </div>
+          <div id="priorityProgress" class="priority-progress"></div>
+        </article>
+      </div>
+
+      <div class="metric-grid">
+        <article class="metric-card card">
+          <span>Plano concluído</span>
+          <strong id="overallPercent">0%</strong>
+          <small id="overallFraction">0 de 0 aulas</small>
+        </article>
+        <article class="metric-card card">
+          <span>Aulas concluídas</span>
+          <strong id="completedCount">0</strong>
+          <small>marcadas no painel</small>
+        </article>
+        <article class="metric-card card">
+          <span>Tempo concluído</span>
+          <strong id="completedHours">0h</strong>
+          <small>considerando 1,5x</small>
+        </article>
+        <article class="metric-card card">
+          <span>Ritmo planejado</span>
+          <strong id="dailyPace">0</strong>
+          <small>aulas por dia útil do plano</small>
+        </article>
+      </div>
+
+      <div class="section-heading">
+        <div>
+          <span class="card-label">Agora</span>
+          <h2>Sessão do dia</h2>
+          <p id="todayHint">Carregando a missão de hoje…</p>
+        </div>
+        <button class="secondary-button" id="markToday" type="button">Concluir sessão</button>
+      </div>
+      <div id="todayCard"></div>
+
+      <div class="section-heading">
+        <div>
+          <span class="card-label">Na sequência</span>
+          <h2>Próximos dias</h2>
+          <p>O suficiente para enxergar o caminho sem transformar o painel num pergaminho infinito.</p>
+        </div>
+      </div>
+      <div class="agenda-stack" id="nextDays"></div>
+    </section>
+
+    <section class="view" id="view-agenda">
+      <div class="page-heading">
+        <div>
+          <span class="kicker">Cronograma completo</span>
+          <h1>Agenda</h1>
+          <p>Cada aula distribuída por data, carga e prioridade.</p>
+        </div>
+      </div>
+
+      <div class="filter-bar card">
+        <label class="search-field">
+          <span class="sr-only">Buscar</span>
+          <input id="agendaSearch" type="search" placeholder="Buscar aula, matéria ou tópico">
+        </label>
+        <select id="monthFilter" aria-label="Filtrar por mês">
+          <option value="all">Todos os meses</option>
+          <option value="2026-07">Julho</option>
+          <option value="2026-08">Agosto</option>
+          <option value="2026-09">Setembro</option>
+          <option value="2026-10">Outubro</option>
+        </select>
+        <select id="subjectFilter" aria-label="Filtrar por matéria">
+          <option value="all">Todas as matérias</option>
+        </select>
+        <select id="statusFilter" aria-label="Filtrar por status">
+          <option value="all">Todos os status</option>
+          <option value="pending">Pendentes</option>
+          <option value="done">Concluídas</option>
+        </select>
+      </div>
+
+      <div class="agenda-stack" id="agendaList"></div>
+    </section>
+
+    <section class="view" id="view-subjects">
+      <div class="page-heading">
+        <div>
+          <span class="kicker">Visão por disciplina</span>
+          <h1>Matérias</h1>
+          <p>Volume, tempo estimado e progresso de cada frente.</p>
+        </div>
+      </div>
+      <div class="subject-grid" id="subjectsGrid"></div>
+    </section>
+
+    <section class="view" id="view-priorities">
+      <div class="page-heading">
+        <div>
+          <span class="kicker">Estratégia</span>
+          <h1>Prioridades</h1>
+          <p>O conteúdo foi filtrado para maximizar pontos antes da prova.</p>
+        </div>
+      </div>
+
+      <div class="priority-card-grid">
+        <article class="card priority-explainer">
+          <span class="priority-pill priority-aplus">A+</span>
+          <h2>Núcleo decisivo</h2>
+          <p>Arquitetura, Java e Spring, APIs, REST, microsserviços, requisitos, testes, métodos ágeis, Português e Inglês.</p>
+        </article>
+        <article class="card priority-explainer">
+          <span class="priority-pill priority-a">A</span>
+          <h2>Alta incidência</h2>
+          <p>Banco de Dados, BI, segurança, legislação, DevOps, Git, containers, ISO 27001/27002 e protocolos seguros.</p>
+        </article>
+        <article class="card priority-explainer">
+          <span class="priority-pill priority-b">B</span>
+          <h2>Cobertura estratégica</h2>
+          <p>Raciocínio Lógico, governança, ITIL, COBIT, BPMN, frontend, acessibilidade, IA e análise de dados.</p>
+        </article>
+      </div>
+
+      <article class="card method-card">
+        <span class="card-label">Método</span>
+        <h2>Quatro fases, um único alvo</h2>
+        <div class="method-grid">
+          <div><strong>1</strong><span>A+ primeiro, para construir vantagem cedo.</span></div>
+          <div><strong>2</strong><span>Conteúdos A, com Banco, BI, Segurança e legislação.</span></div>
+          <div><strong>3</strong><span>Cobertura B sem sacrificar os assuntos mais valiosos.</span></div>
+          <div><strong>4</strong><span>Sete dias finais sem aulas novas, só revisão e simulados.</span></div>
+        </div>
+      </article>
+
+      <div class="section-heading">
+        <div>
+          <span class="card-label">Quando houver folga</span>
+          <h2>Conteúdo opcional</h2>
+          <p>Prioridade C. Só entra depois que o núcleo estiver firme.</p>
+        </div>
+      </div>
+      <div class="optional-stack" id="optionalList"></div>
+    </section>
+  </main>
+
+  <nav class="mobile-nav" aria-label="Navegação móvel">
+    <button class="active" type="button" data-view="dashboard"><span>Hoje</span></button>
+    <button type="button" data-view="agenda"><span>Agenda</span></button>
+    <button type="button" data-view="subjects"><span>Matérias</span></button>
+    <button type="button" data-view="priorities"><span>Prioridades</span></button>
+  </nav>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
