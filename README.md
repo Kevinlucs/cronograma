@@ -1,4 +1,4 @@
-# DATAPREV · Agenda de Estudos
+# Cronograma de Estudos
 
 Este é um projeto pessoal que criei para organizar minha preparação para o concurso da **DATAPREV 2026**, no perfil de **Desenvolvimento de Software**.
 
