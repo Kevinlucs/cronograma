@@ -3,11 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="theme-color" content="#0b5e8e">
   <meta name="description" content="Agenda de estudos para o concurso DATAPREV 2026, perfil Desenvolvimento de Software.">
   <title>DATAPREV · Agenda de Estudos</title>
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=4.0.0">
 </head>
 <body>
   <header class="site-header">
@@ -119,33 +122,67 @@
         <div>
           <span class="card-label">Horas líquidas</span>
           <h2>Cronômetro de estudo</h2>
-          <p>Registre apenas o tempo em que você realmente esteve estudando.</p>
+          <p>Conte somente o tempo em que você realmente estiver estudando.</p>
         </div>
       </div>
-      <article class="card timer-card">
-        <div class="timer-main">
-          <div>
-            <span class="timer-status" id="timerStatus">Pronto para começar</span>
-            <strong class="timer-display" id="timerDisplay">00:00:00</strong>
+
+      <article class="card focus-timer" aria-labelledby="timerDisplay">
+        <div class="focus-timer__header">
+          <div class="timer-state">
+            <span class="timer-state__dot" id="timerPulse" aria-hidden="true"></span>
+            <div>
+              <span class="timer-state__label">Sessão focada</span>
+              <strong id="timerStatus">Pronto para começar</strong>
+            </div>
           </div>
-          <div class="timer-actions">
-            <button class="primary-button" id="timerStartPause" type="button">Iniciar</button>
-            <button class="secondary-button" id="timerFinish" type="button">Finalizar e salvar</button>
-            <button class="text-button" id="timerReset" type="button">Zerar</button>
+
+          <div class="timer-daily-goal">
+            <span>Hoje</span>
+            <strong id="timerTodayTotal">0 min</strong>
+            <small>de 2h planejadas</small>
           </div>
         </div>
-        <div class="timer-fields">
-          <label>
+
+        <div class="focus-timer__center">
+          <div class="timer-clock">
+            <strong id="timerDisplay">00:00:00</strong>
+            <span>tempo líquido desta sessão</span>
+          </div>
+
+          <div class="timer-controls" aria-label="Controles do cronômetro">
+            <button class="timer-button timer-button--primary" id="timerStartPause" type="button">
+              Iniciar
+            </button>
+            <button class="timer-button timer-button--save" id="timerFinish" type="button" disabled>
+              Salvar sessão
+            </button>
+            <button class="timer-button timer-button--reset" id="timerReset" type="button" aria-label="Zerar cronômetro" title="Zerar cronômetro">
+              ↺
+            </button>
+          </div>
+        </div>
+
+        <div class="timer-goal-track" aria-label="Progresso da meta diária">
+          <div id="timerTodayProgress"></div>
+        </div>
+
+        <div class="timer-selectors">
+          <label class="timer-field">
             <span>Matéria</span>
-            <select id="timerSubject"></select>
+            <select id="timerSubject" aria-label="Matéria da sessão"></select>
           </label>
-          <label>
-            <span>Aula opcional</span>
-            <select id="timerLesson">
+
+          <label class="timer-field">
+            <span>Aula relacionada <small>opcional</small></span>
+            <select id="timerLesson" aria-label="Aula relacionada">
               <option value="">Sessão geral da matéria</option>
             </select>
           </label>
         </div>
+
+        <p class="timer-helper">
+          O cronômetro continua salvo se você atualizar ou fechar a página.
+        </p>
       </article>
 
       <div class="section-heading">
@@ -347,7 +384,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="assets/js/data.js"></script>
-  <script src="assets/js/app.js"></script>
+  <script src="assets/js/data.js?v=4.0.0"></script>
+  <script src="assets/js/app.js?v=4.0.0"></script>
 </body>
 </html>

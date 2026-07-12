@@ -1,4 +1,4 @@
-# Cronograma de Estudos
+# DATAPREV · Agenda de Estudos
 
 Este é um projeto pessoal que criei para organizar minha preparação para o concurso da **DATAPREV 2026**, no perfil de **Desenvolvimento de Software**.
 
@@ -132,3 +132,13 @@ Mais do que um exercício de desenvolvimento front-end, este projeto nasceu de u
 Em vez de depender apenas da ordem apresentada pelo curso, montei uma ferramenta que organiza o conteúdo conforme a prioridade e transforma um edital extenso em pequenas missões diárias.
 
 A meta não é simplesmente assistir ao maior número possível de aulas. A meta é estudar com direção e chegar competitivo no dia da prova.
+
+
+## Atualização da versão 4
+
+- novo cronômetro com interface minimalista;
+- indicador visual de sessão em andamento;
+- acompanhamento da meta diária de duas horas;
+- botão de salvar habilitado somente após um minuto;
+- seletores responsivos e estilizados;
+- arquivos CSS e JavaScript versionados para evitar cache antigo no GitHub Pages.

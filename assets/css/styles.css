@@ -1051,3 +1051,324 @@ h3 {
     width: 100%;
   }
 }
+
+
+/* Cronômetro v4 --------------------------------------------------------- */
+.focus-timer {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  margin-bottom: 10px;
+  border-color: #d8e3ea;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(22, 137, 169, .08), transparent 34%),
+    var(--surface);
+}
+
+.focus-timer__header {
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.timer-state {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.timer-state__dot {
+  width: 11px;
+  height: 11px;
+  flex: none;
+  border: 3px solid #dce7ec;
+  border-radius: 50%;
+  background: #9dafbb;
+  box-shadow: 0 0 0 4px #f2f6f8;
+  transition: .2s ease;
+}
+
+.timer-state__dot.running {
+  border-color: #bde5d0;
+  background: var(--green);
+  box-shadow: 0 0 0 5px rgba(79, 148, 110, .12);
+  animation: timerPulse 1.7s ease-in-out infinite;
+}
+
+@keyframes timerPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.16); }
+}
+
+.timer-state__label {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--muted);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.timer-state strong {
+  display: block;
+  color: var(--text-strong);
+  font-size: .9rem;
+}
+
+.timer-daily-goal {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 8px;
+  align-items: baseline;
+  justify-items: end;
+  text-align: right;
+}
+
+.timer-daily-goal > span {
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 700;
+}
+
+.timer-daily-goal > strong {
+  color: var(--blue);
+  font-size: 1rem;
+}
+
+.timer-daily-goal > small {
+  grid-column: 1 / -1;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: .68rem;
+}
+
+.focus-timer__center {
+  min-height: 158px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 27px 22px 24px;
+}
+
+.timer-clock strong {
+  display: block;
+  color: var(--text-strong);
+  font-size: clamp(3.1rem, 7vw, 5.25rem);
+  line-height: .92;
+  letter-spacing: -.075em;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-clock span {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: .76rem;
+}
+
+.timer-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.timer-button {
+  min-height: 44px;
+  padding: 10px 17px;
+  border-radius: 11px;
+  font-size: .82rem;
+  font-weight: 800;
+  transition: transform .16s ease, border-color .16s ease, background .16s ease, opacity .16s ease;
+}
+
+.timer-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.timer-button--primary {
+  min-width: 104px;
+  color: #fff;
+  border: 1px solid var(--blue);
+  background: var(--blue);
+  box-shadow: 0 8px 18px rgba(11, 94, 142, .16);
+}
+
+.timer-button--primary:hover:not(:disabled) {
+  background: var(--blue-dark);
+}
+
+.timer-button--save {
+  color: var(--blue);
+  border: 1px solid #bad3df;
+  background: #f2f8fb;
+}
+
+.timer-button--save:hover:not(:disabled) {
+  border-color: var(--cyan);
+  background: #eaf5f9;
+}
+
+.timer-button--reset {
+  width: 44px;
+  padding: 0;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-size: 1.15rem;
+}
+
+.timer-button:disabled {
+  color: #99a9b4;
+  border-color: #e2e9ed;
+  background: #f3f6f8;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: .78;
+}
+
+.timer-goal-track {
+  height: 4px;
+  margin: 0 22px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #eaf0f4;
+}
+
+.timer-goal-track > div {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--cyan), var(--green));
+  transition: width .3s ease;
+}
+
+.timer-selectors {
+  display: grid;
+  grid-template-columns: minmax(220px, .8fr) minmax(300px, 1.2fr);
+  gap: 12px;
+  padding: 19px 22px 0;
+}
+
+.timer-field {
+  display: grid;
+  gap: 7px;
+}
+
+.timer-field > span {
+  color: var(--muted);
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .035em;
+}
+
+.timer-field > span small {
+  margin-left: 3px;
+  color: #98a8b4;
+  font-size: .66rem;
+  font-weight: 600;
+}
+
+.timer-field select {
+  width: 100%;
+  min-height: 45px;
+  padding: 10px 39px 10px 12px;
+  color: var(--text);
+  border: 1px solid #d5e0e7;
+  border-radius: 11px;
+  outline: 0;
+  background-color: #fbfcfd;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #718897 50%),
+    linear-gradient(135deg, #718897 50%, transparent 50%);
+  background-position:
+    calc(100% - 17px) 19px,
+    calc(100% - 12px) 19px;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  appearance: none;
+  transition: border-color .16s ease, box-shadow .16s ease, background-color .16s ease;
+}
+
+.timer-field select:hover {
+  border-color: #b9cbd6;
+  background-color: #fff;
+}
+
+.timer-field select:focus {
+  border-color: var(--cyan);
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(22, 137, 169, .11);
+}
+
+.timer-helper {
+  margin: 13px 22px 20px;
+  color: var(--muted);
+  font-size: .68rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .focus-timer__header {
+    align-items: flex-start;
+  }
+
+  .focus-timer__center {
+    display: block;
+    text-align: center;
+  }
+
+  .timer-controls {
+    justify-content: center;
+    margin-top: 23px;
+  }
+
+  .timer-selectors {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .focus-timer__header {
+    display: block;
+  }
+
+  .timer-daily-goal {
+    margin-top: 15px;
+    justify-content: start;
+    justify-items: start;
+    text-align: left;
+  }
+
+  .timer-clock strong {
+    font-size: 3.65rem;
+  }
+
+  .timer-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr 44px;
+  }
+
+  .timer-button {
+    padding-inline: 10px;
+  }
+
+  .timer-selectors {
+    padding-inline: 16px;
+  }
+
+  .timer-goal-track {
+    margin-inline: 16px;
+  }
+
+  .timer-helper {
+    margin-inline: 16px;
+  }
+}

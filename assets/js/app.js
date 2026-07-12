@@ -71,7 +71,11 @@
   }
 
   function saveState() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (error) {
+      console.warn("O armazenamento local não está disponível. O painel continuará funcionando nesta sessão.", error);
+    }
   }
 
   function localDateISO(date = new Date()) {
@@ -439,13 +443,52 @@
     const display = document.getElementById("timerDisplay");
     const status = document.getElementById("timerStatus");
     const button = document.getElementById("timerStartPause");
+    const finishButton = document.getElementById("timerFinish");
+    const pulse = document.getElementById("timerPulse");
+    const todayTotal = document.getElementById("timerTodayTotal");
+    const todayProgress = document.getElementById("timerTodayProgress");
+
     if (!display || !status || !button) return;
 
-    display.textContent = formatSeconds(currentTimerSeconds());
-    status.textContent = state.timer.running ? "Cronômetro em andamento" : currentTimerSeconds() ? "Cronômetro pausado" : "Pronto para começar";
-    button.textContent = state.timer.running ? "Pausar" : currentTimerSeconds() ? "Continuar" : "Iniciar";
+    const seconds = currentTimerSeconds();
+    const today = localDateISO();
+    const savedTodaySeconds = sessionSecondsBetween(today, today);
+    const activeSeconds = seconds;
+    const totalTodaySeconds = savedTodaySeconds + activeSeconds;
+    const dailyGoalSeconds = 2 * 60 * 60;
+    const goalPercent = Math.min(100, (totalTodaySeconds / dailyGoalSeconds) * 100);
+
+    display.textContent = formatSeconds(seconds);
+    status.textContent = state.timer.running
+      ? "Sessão em andamento"
+      : seconds
+        ? "Sessão pausada"
+        : "Pronto para começar";
+
+    button.textContent = state.timer.running
+      ? "Pausar"
+      : seconds
+        ? "Continuar"
+        : "Iniciar";
+
+    if (finishButton) {
+      finishButton.disabled = seconds < 60 || !timerSubjectValue();
+    }
+
+    if (pulse) {
+      pulse.classList.toggle("running", state.timer.running);
+    }
+
+    if (todayTotal) {
+      todayTotal.textContent = formatStudyDuration(totalTodaySeconds);
+    }
+
+    if (todayProgress) {
+      todayProgress.style.width = `${goalPercent}%`;
+    }
+
     document.title = state.timer.running
-      ? `${formatSeconds(currentTimerSeconds())} · DATAPREV`
+      ? `${formatSeconds(seconds)} · DATAPREV`
       : "DATAPREV · Agenda de Estudos";
   }
 
@@ -844,6 +887,7 @@
       state.timer.lessonId = "";
       populateTimerLessons(event.currentTarget.value);
       saveState();
+      updateTimerUI();
     });
 
     document.getElementById("timerLesson").addEventListener("change", syncTimerStateFromFields);
