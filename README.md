@@ -29,6 +29,10 @@ O cronograma considera uma rotina de aproximadamente **2 horas de estudo por dia
 - acompanhamento por matéria;
 - filtros por mês, disciplina e status;
 - marcação de aulas concluídas;
+- cronômetro para contabilizar horas líquidas de estudo;
+- histórico de sessões e gráfico dos últimos sete dias;
+- registro manual de horas;
+- possibilidade de antecipar uma aula futura para o dia atual;
 - armazenamento automático do progresso;
 - layout responsivo para desktop e celular;
 - exportação e importação de backup do progresso;
@@ -41,7 +45,7 @@ O projeto foi desenvolvido sem frameworks, utilizando tecnologias web nativas:
 - **HTML5** para a estrutura das páginas;
 - **CSS3** para o layout responsivo e a identidade visual;
 - **JavaScript Vanilla** para renderização, filtros e regras do cronograma;
-- **LocalStorage** para salvar o progresso no navegador;
+- **LocalStorage** para salvar progresso, horas registradas e alterações na agenda;
 - **JSON/JavaScript Objects** para armazenar as aulas e a agenda;
 - **Git e GitHub** para versionamento;
 - **GitHub Pages** para publicação do painel.
@@ -117,7 +121,6 @@ Uma evolução futura do projeto pode incluir autenticação e sincronização a
 
 - sincronização do progresso entre dispositivos;
 - autenticação de usuário;
-- histórico de sessões de estudo;
 - métricas semanais de desempenho;
 - registro de questões e simulados;
 - possibilidade de reagendar aulas pendentes.

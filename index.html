@@ -20,6 +20,7 @@
         <button class="nav-link active" type="button" data-view="dashboard">Visão geral</button>
         <button class="nav-link" type="button" data-view="agenda">Agenda</button>
         <button class="nav-link" type="button" data-view="subjects">Matérias</button>
+        <button class="nav-link" type="button" data-view="hours">Horas</button>
         <button class="nav-link" type="button" data-view="priorities">Prioridades</button>
       </nav>
 
@@ -92,9 +93,19 @@
           <small>marcadas no painel</small>
         </article>
         <article class="metric-card card">
-          <span>Tempo concluído</span>
+          <span>Horas líquidas</span>
+          <strong id="netStudyHours">0h</strong>
+          <small>registradas no cronômetro</small>
+        </article>
+        <article class="metric-card card">
+          <span>Esta semana</span>
+          <strong id="weeklyStudyHours">0h</strong>
+          <small>tempo efetivo de estudo</small>
+        </article>
+        <article class="metric-card card">
+          <span>Tempo das aulas concluídas</span>
           <strong id="completedHours">0h</strong>
-          <small>considerando 1,5x</small>
+          <small>estimativa em velocidade 1,5x</small>
         </article>
         <article class="metric-card card">
           <span>Ritmo planejado</span>
@@ -102,6 +113,40 @@
           <small>aulas por dia útil do plano</small>
         </article>
       </div>
+
+
+      <div class="section-heading timer-section-heading">
+        <div>
+          <span class="card-label">Horas líquidas</span>
+          <h2>Cronômetro de estudo</h2>
+          <p>Registre apenas o tempo em que você realmente esteve estudando.</p>
+        </div>
+      </div>
+      <article class="card timer-card">
+        <div class="timer-main">
+          <div>
+            <span class="timer-status" id="timerStatus">Pronto para começar</span>
+            <strong class="timer-display" id="timerDisplay">00:00:00</strong>
+          </div>
+          <div class="timer-actions">
+            <button class="primary-button" id="timerStartPause" type="button">Iniciar</button>
+            <button class="secondary-button" id="timerFinish" type="button">Finalizar e salvar</button>
+            <button class="text-button" id="timerReset" type="button">Zerar</button>
+          </div>
+        </div>
+        <div class="timer-fields">
+          <label>
+            <span>Matéria</span>
+            <select id="timerSubject"></select>
+          </label>
+          <label>
+            <span>Aula opcional</span>
+            <select id="timerLesson">
+              <option value="">Sessão geral da matéria</option>
+            </select>
+          </label>
+        </div>
+      </article>
 
       <div class="section-heading">
         <div>
@@ -168,6 +213,81 @@
       <div class="subject-grid" id="subjectsGrid"></div>
     </section>
 
+
+    <section class="view" id="view-hours">
+      <div class="page-heading">
+        <div>
+          <span class="kicker">Tempo efetivo</span>
+          <h1>Horas de estudo</h1>
+          <p>Acompanhe o tempo líquido registrado, sem contar pausas ou vídeo rodando no vazio.</p>
+        </div>
+      </div>
+
+      <div class="metric-grid hours-metrics">
+        <article class="metric-card card">
+          <span>Total estudado</span>
+          <strong id="hoursTotal">0h</strong>
+          <small>todas as sessões registradas</small>
+        </article>
+        <article class="metric-card card">
+          <span>Hoje</span>
+          <strong id="hoursToday">0h</strong>
+          <small>tempo líquido do dia</small>
+        </article>
+        <article class="metric-card card">
+          <span>Últimos 7 dias</span>
+          <strong id="hoursWeek">0h</strong>
+          <small>janela móvel semanal</small>
+        </article>
+        <article class="metric-card card">
+          <span>Média por sessão</span>
+          <strong id="hoursAverage">0 min</strong>
+          <small>ritmo médio registrado</small>
+        </article>
+      </div>
+
+      <div class="hours-layout">
+        <article class="card study-chart-card">
+          <div class="card-heading compact">
+            <div>
+              <span class="card-label">Últimos 7 dias</span>
+              <h2>Consistência semanal</h2>
+            </div>
+          </div>
+          <div class="study-bars" id="studyBars"></div>
+        </article>
+
+        <article class="card manual-card">
+          <span class="card-label">Registro manual</span>
+          <h2>Adicionar sessão</h2>
+          <form id="manualSessionForm" class="manual-form">
+            <label>
+              <span>Data</span>
+              <input type="date" id="manualDate" required>
+            </label>
+            <label>
+              <span>Matéria</span>
+              <select id="manualSubject" required></select>
+            </label>
+            <label>
+              <span>Minutos estudados</span>
+              <input type="number" id="manualMinutes" min="1" max="720" required placeholder="Ex.: 45">
+            </label>
+            <button class="primary-button" type="submit">Registrar tempo</button>
+          </form>
+        </article>
+      </div>
+
+      <div class="section-heading">
+        <div>
+          <span class="card-label">Histórico</span>
+          <h2>Sessões registradas</h2>
+          <p>Você pode excluir registros lançados por engano.</p>
+        </div>
+      </div>
+      <div class="session-list" id="sessionList"></div>
+    </section>
+
     <section class="view" id="view-priorities">
       <div class="page-heading">
         <div>
@@ -221,6 +341,7 @@
     <button class="active" type="button" data-view="dashboard"><span>Hoje</span></button>
     <button type="button" data-view="agenda"><span>Agenda</span></button>
     <button type="button" data-view="subjects"><span>Matérias</span></button>
+    <button type="button" data-view="hours"><span>Horas</span></button>
     <button type="button" data-view="priorities"><span>Prioridades</span></button>
   </nav>
 
