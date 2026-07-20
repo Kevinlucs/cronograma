@@ -1,104 +1,84 @@
-# DATAPREV · Agenda de Estudos
+# Mission Control · EMBRATUR + DATAPREV
 
-Este é um projeto pessoal que criei para organizar minha preparação para o concurso da **DATAPREV 2026**, no perfil de **Desenvolvimento de Software**.
+Painel estático para organizar a preparação simultânea para:
 
-Ao analisar o edital e a quantidade de aulas disponíveis no curso preparatório, percebi que tentar assistir a todo o conteúdo em sequência não seria a estratégia mais eficiente. Por isso, desenvolvi este painel para transformar o curso em um cronograma diário, priorizando os assuntos com maior relevância para a prova.
+- **EMBRATUR 2026 — Analista Administrativo**
+- **DATAPREV 2026 — Perfil 3: Desenvolvimento de Software**
 
-A ideia é simples: abrir o painel, visualizar as aulas programadas para o dia, concluir a sessão e acompanhar a evolução até a data da prova.
+A aplicação mantém a base simples do projeto original: HTML, CSS, JavaScript Vanilla e `localStorage`, sem backend ou etapa de build.
 
-## Objetivo do projeto
+## Estratégia do cronograma
 
-O painel foi criado para me ajudar a:
+### Até 29/07/2026
 
-- manter constância nos estudos;
-- saber exatamente quais aulas assistir em cada dia;
-- concentrar tempo nos conteúdos mais importantes;
-- acompanhar o progresso por nível de prioridade;
-- visualizar quantos dias faltam para a prova;
-- evitar perder tempo escolhendo diariamente o que estudar;
-- acessar o cronograma pelo computador ou celular.
+O concurso prioritário é a **EMBRATUR**.
 
-O cronograma considera uma rotina de aproximadamente **2 horas de estudo por dia**, com as videoaulas assistidas em **1,5x**.
+O período de 17 a 28 de julho foi recalculado para:
+
+- concentrar aproximadamente 90 minutos diários no conteúdo de maior retorno da EMBRATUR;
+- manter aulas técnicas da DATAPREV em dias com menor carga;
+- destacar conteúdos que atendem aos dois editais;
+- reservar 10 minutos diários para revisão ativa ou questões.
+
+### Depois da prova da EMBRATUR
+
+A partir de 30/07, a prioridade migra automaticamente para a **DATAPREV**, com foco no núcleo **A+ e A**.
+
+Os últimos sete dias antes da prova ficam reservados para simulados, correção e revisão final.
+
+## Conteúdos compartilhados
+
+O sistema classifica cada aula como:
+
+- **Serve aos dois**: reaproveitamento direto;
+- **Aproveitamento parcial**: há interseção, mas os editais não são idênticos;
+- **Exclusiva**: conteúdo específico de um concurso.
+
+Entre as principais pontes estão:
+
+- Língua Portuguesa;
+- Língua Inglesa;
+- LGPD;
+- LAI;
+- Business Intelligence;
+- governança e análise de dados;
+- inteligência artificial;
+- metodologias ágeis;
+- gestão de projetos.
 
 ## Funcionalidades
 
-- agenda diária de aulas;
-- contagem regressiva para a prova;
-- progresso geral do cronograma;
-- progresso separado por prioridades **A+**, **A** e **B**;
-- acompanhamento por matéria;
-- filtros por mês, disciplina e status;
-- marcação de aulas concluídas;
-- cronômetro para contabilizar horas líquidas de estudo;
-- histórico de sessões e gráfico dos últimos sete dias;
-- registro manual de horas;
-- possibilidade de antecipar uma aula futura para o dia atual;
-- armazenamento automático do progresso;
-- layout responsivo para desktop e celular;
-- exportação e importação de backup do progresso;
-- período final reservado para revisões e simulados.
+- dashboard com os dois concursos;
+- contagem regressiva independente;
+- prioridade automática conforme a data;
+- agenda integrada;
+- sessões mistas EMBRATUR/DATAPREV;
+- progresso por concurso e prioridade;
+- filtros por mês, concurso, matéria e status;
+- mapa de matérias;
+- selo de reaproveitamento;
+- catálogo de aulas fora do plano principal;
+- tema claro/escuro;
+- exportação e importação de backup;
+- migração automática do progresso da versão anterior.
 
-## Tecnologias utilizadas
+## Migração do progresso
 
-O projeto foi desenvolvido sem frameworks, utilizando tecnologias web nativas:
-
-- **HTML5** para a estrutura das páginas;
-- **CSS3** para o layout responsivo e a identidade visual;
-- **JavaScript Vanilla** para renderização, filtros e regras do cronograma;
-- **LocalStorage** para salvar progresso, horas registradas e alterações na agenda;
-- **JSON/JavaScript Objects** para armazenar as aulas e a agenda;
-- **Git e GitHub** para versionamento;
-- **GitHub Pages** para publicação do painel.
-
-## Como executar localmente
-
-A forma mais simples é utilizar a extensão **Live Server** no VS Code:
-
-1. Abra a pasta do projeto no VS Code.
-2. Clique com o botão direito no arquivo `index.html`.
-3. Selecione **Open with Live Server**.
-
-Também é possível iniciar um servidor HTTP pelo terminal:
-
-```bash
-python3 -m http.server 5500
-```
-
-Depois, acesse:
+A versão anterior utilizava a chave:
 
 ```text
-http://localhost:5500
+dataprev-mission-control-v1
 ```
 
-## Publicação no GitHub Pages
-
-1. Crie um repositório no GitHub.
-2. Envie os arquivos do projeto para a branch `main`.
-3. Acesse **Settings > Pages**.
-4. Em **Build and deployment**, selecione **Deploy from a branch**.
-5. Escolha a branch `main` e a pasta `/ (root)`.
-6. Salve e aguarde a publicação.
-
-O endereço será semelhante a:
+A nova versão usa:
 
 ```text
-https://seu-usuario.github.io/nome-do-repositorio/
+study-mission-control-v2
 ```
 
-## Salvamento do progresso
+Na primeira abertura, caso ainda não exista progresso na nova chave, o sistema importa automaticamente as aulas concluídas da versão anterior.
 
-O progresso é salvo automaticamente utilizando o `localStorage`.
-
-Isso significa que:
-
-- as aulas concluídas continuam marcadas após fechar o navegador;
-- os dados ficam armazenados no navegador utilizado;
-- navegadores e dispositivos diferentes possuem armazenamentos separados;
-- o recurso de backup permite exportar e importar o progresso.
-
-Uma evolução futura do projeto pode incluir autenticação e sincronização automática usando um backend como **Supabase** ou **Firebase**.
-
-## Estrutura do projeto
+## Estrutura
 
 ```text
 .
@@ -110,35 +90,37 @@ Uma evolução futura do projeto pode incluir autenticação e sincronização a
     ├── css
     │   └── styles.css
     ├── img
-    │   ├── dataprev-logo.png
-    │   └── favicon.png
     └── js
         ├── data.js
         └── app.js
 ```
 
-## Próximas melhorias
+## Executar localmente
 
-- sincronização do progresso entre dispositivos;
-- autenticação de usuário;
-- métricas semanais de desempenho;
-- registro de questões e simulados;
-- possibilidade de reagendar aulas pendentes.
+Use a extensão **Live Server** no VS Code ou execute:
 
-## Motivação
+```bash
+python3 -m http.server 5500
+```
 
-Mais do que um exercício de desenvolvimento front-end, este projeto nasceu de uma necessidade real da minha preparação.
+Depois acesse:
 
-Em vez de depender apenas da ordem apresentada pelo curso, montei uma ferramenta que organiza o conteúdo conforme a prioridade e transforma um edital extenso em pequenas missões diárias.
+```text
+http://localhost:5500
+```
 
-A meta não é simplesmente assistir ao maior número possível de aulas. A meta é estudar com direção e chegar competitivo no dia da prova.
+## Publicar no GitHub Pages
 
+1. Envie os arquivos para a branch `main`.
+2. Abra **Settings > Pages**.
+3. Em **Build and deployment**, escolha **Deploy from a branch**.
+4. Selecione `main` e `/ (root)`.
+5. Salve.
 
-## Atualização da versão 4
+## Tecnologias
 
-- novo cronômetro com interface minimalista;
-- indicador visual de sessão em andamento;
-- acompanhamento da meta diária de duas horas;
-- botão de salvar habilitado somente após um minuto;
-- seletores responsivos e estilizados;
-- arquivos CSS e JavaScript versionados para evitar cache antigo no GitHub Pages.
+- HTML5
+- CSS3
+- JavaScript Vanilla
+- LocalStorage
+- GitHub Pages
